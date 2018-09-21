@@ -4,4 +4,4 @@ const PORT = 2000;
 
 app.use(express.static('./client/'));
 
-app.listen(PORT);
+app.listen(process.env.PORT || PORT);
