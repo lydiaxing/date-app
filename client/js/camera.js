@@ -19,6 +19,9 @@ class CameraAPI {
     this.canvas = document.getElementById('canvas');
     this.context = this.canvas.getContext('2d');
 
+    this.emotionConfidence = '';
+    this.emotionPrediction = '';
+
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       this.player.srcObject = stream;
     });
@@ -70,6 +73,8 @@ class CameraAPI {
    * @param data Data received from the API
    */
   onReceiveData(data) {
+    this.emotionConfidence = data.predictions[0].probability;
+    this.emotionPrediction = data.predictions[0].tagName;
     const prediction = data.predictions[0].probability > data.predictions[1].probability ?
                           data.predictions[0].tagName : data.predictions[1].tagName;
     this.network.sendImageAPIResult(prediction);

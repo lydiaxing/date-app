@@ -52,10 +52,10 @@
         <p>You are now chatting with: <b data-bind="text: selectedUser().name"></b></p>
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
-        <div data-bind="with: textData">
+        <div data-bind="with: imageData">
+          <p data-bind="text: emotionPrediction">asdf</p>
+          <p data-bind="text: emotionConfidence">asdfasd</p>
           <!--
-          <p data-bind="value: emotionPrediction"></p>
-          <p data-bind="value: emotionConfidence"></p>
           <p data-bind="value: realTimeTranscript"></p>
           <p data-bind="value: textSentimentPrediction"></p>
           <p data-bind="value: textSentimentConfidence"></p>
@@ -75,7 +75,7 @@
 
       <!-- post date analysis -->
       <div data-bind="visible: currentScreen() == 'postMortem'">
-        <div data-bind="with: postMortem">
+        <div data-bind="with: textData">
           <!--
           <p data-bind-"value: transcript"></p>
           <p data-bind-"value: keyPhrases"></p>
