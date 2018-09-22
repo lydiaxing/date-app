@@ -47,6 +47,9 @@ class Session {
     this.user1.socket.emit('match', data); // possibly add other data?
     this.user2.socket.emit('match', data);
     
+    this.user1.socket.disconnect();
+    this.user2.socket.disconnect();
+    
     // TODO: end session
   }
 }
