@@ -3,7 +3,7 @@ const constraints = {
 };
 
 const INTERVAL = 3000;
-const URL = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/24aed5d6-c24f-4ae2-9500-cdbd20ecab05/url?iterationId=9ff6fef5-eaf4-4fd6-af89-32d567919772"
+const URL = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/24aed5d6-c24f-4ae2-9500-cdbd20ecab05/image?iterationId=9ff6fef5-eaf4-4fd6-af89-32d567919772"
 
 class CameraAPI {
   /**
