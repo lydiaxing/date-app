@@ -10,7 +10,7 @@ class Networking {
     this.socket = io({ query: { name: name }});
     // todo: check for errors (socket didn't connect, etc.)
     
-    this.socket.on('userList', this.receiveUsers);
+    this.socket.on('userList', this.receiveUsers.bind(this));
   }
   
   /**
@@ -27,7 +27,7 @@ class Networking {
    * @param data List of users received from the server
    */
   receiveUsers(data) {
-    this.otherUsers = data.filter(name => name !== this.name);
+    this.otherUsers = data.filter(user => user.name !== this.name);
     this.callback(this.otherUsers);
     this.callback = () => {};
   }

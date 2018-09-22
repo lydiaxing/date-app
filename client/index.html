@@ -34,7 +34,8 @@
       </div>
 
       <div id="userList" data-bind="visible: currentScreen() == 'userList'">
-        <p>Please select a list </p>
+        <p>Please select someone to chat with</p>
+        <p data-bind="visible: users().length === 0">No users are currently online. Try refreshing?</p>
         <ul data-bind="foreach: users">
           <li data-bind="text: name"></li>
         </ul>
@@ -44,8 +45,10 @@
       <div id="session" data-bind="visible: currentScreen() == 'session'">
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
+        <!--
         <p data-bind="value: prediction"></p>
         <p data-bind="value: confidence"></p>
+        -->
       </div>
     </div>
   </div>

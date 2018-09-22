@@ -22,16 +22,29 @@ class Session {
 let users = []
 
 io.on('connection', socket => {
-   //console.log(socket.handshake.query.name);
    users.push(new User(socket.handshake.query.name, socket));
    
-   socket.on('getUsers', socket => {
-     socket.emit('userList', users);
+   socket.on('getUsers', () => {
+     socket.emit('userList', getUsersList());
    });
 });
 
 function findUser(name) {
   return users.find(user => user.name === name);
+}
+
+/**
+ * Returns the users list without the sockets.
+ * This helps avoid stack errors
+ */
+function getUsersList() {
+  let result = [];
+  for (let user of users) {
+    result.push({
+      name: user.name
+    });
+  }
+  return result;
 }
 
 http.listen(PORT, () => {
