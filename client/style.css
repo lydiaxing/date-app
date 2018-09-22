@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Main';
-  src: font-url('assets/font.ttf');
+  src: url('assets/font.ttf');
 }
 
 html, body {
