@@ -25,6 +25,7 @@
   <div class="main">
     <!-- TODO: is this funny -->
     <h1>Carnegie Cupid</h1>
+    <p data-bind="visible: myName() !== ''">Your name is <b data-bind="text: myName()"></b></p>
 
     <div class="content">
       <div data-bind="visible: currentScreen() == 'welcome'">
@@ -41,7 +42,10 @@
 
       <div data-bind="visible: currentScreen() == 'userList'">
         <p>Please select someone else to chat with</p>
-        <p data-bind="visible: users().length === 0">No users are currently online. Try refreshing?</p>
+        <p data-bind="visible: users().length === 0">
+          (No users are currently online. Try clicking the refresh
+          button below)
+        </p>
         <table class="userList" data-bind="visible: users().length !== 0, foreach: users">
           <tr>
             <td class="nameOption" data-bind="text: name, click: $root.nameClick "></td>

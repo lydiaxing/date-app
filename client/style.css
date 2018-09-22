@@ -38,11 +38,13 @@ input, button {
 
 input {
   border: 0.1em solid white;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
 }
 
 button {
   background: #6B0504 none;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
   transition-duration: 0.2s;
   border: 0.1em solid #6B0504;
@@ -52,16 +54,18 @@ button {
 
 button:hover {
   background: #b20707 none;
-  border-color: #b20707;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
   transition-duration: 0.2s;
-  border: 0.1em solid #bfbfbf;
+  border: 0.1em solid #b20707;
 }
 
 button:active {
   background: #4c0303 none;
   border-color: #4c0303;
+}
+
+button:focus {
+  outline: 0;
 }
 
 .main {
