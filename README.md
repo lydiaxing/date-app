@@ -8,5 +8,3 @@ Created at Carnegie Mellon University during HackCMU.
 $ npm install
 $ npm run
 ```
-
-Logo font: Fontdinerdotcom Luvable by Font Diner (dafont.com)
