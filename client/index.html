@@ -11,7 +11,9 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
 
-  <script src="js/jQuery.js"></script>
+  <script src="js/lib/jQuery.js"></script>
+  <script src="js/lib/knockout.js"></script>
+
   <script src="js/networking.js"></script>
   <script src="js/camera.js"></script>
   <script src="js/app.js"></script>
@@ -27,7 +29,7 @@
     <canvas id="canvas"></canvas>
     -->
     <div class="content">
-      <div id="welcome">
+      <div id="welcome" data-bind="visible: currentScreen() == 'welcome'">
         <p>Welcome to Carnegie Cupid! Fill out your name and
           click the button below to connect to the server</p>
         <input type="text" id="name" placeholder="Enter your name..." />
