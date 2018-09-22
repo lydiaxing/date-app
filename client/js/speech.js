@@ -5,7 +5,8 @@ class SpeechAPI {
   /**
     * Creates a new SpeechAPI instance
     */
-  constructor() {
+  constructor(network) {
+    this.network = network;
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
@@ -22,9 +23,8 @@ class SpeechAPI {
         }
       }
 
-      //TODO: update html based on these values
-      console.log('interm', this.interim);
-      console.log('final', this.transcript)
+      this.network.emitInterimTranscript(this.interim)
+      this.network.emitFinalTranscript(this.transcript)
     };
 
     this.recognition.onstart = () => {
@@ -63,7 +63,7 @@ class SpeechAPI {
   }
 
   /**
-   * Sends the transcript to the API
+   * Sends the transcript to the API for sentiment analysis
    */
   sendRequest() {
     const json = JSON.stringify({
@@ -94,7 +94,16 @@ class SpeechAPI {
     * @param data Data received from the API
     */
   onReceiveData(data) {
-    console.log(data);
-    // TODO: send to server
+    const sentiment = data.documents[0].score
+    this.network.sendSentimentResult(sentiment)
+  }
+
+  /**
+    * Process received postmortem data
+    * @param data Data received from the API
+    */
+  onReceiveKeyPhrases(data) {
+      const keyPhrases = data.documents[0].keyPhrases;
+      this.network.sendKeyPhrasesResult(keyPhrases)
   }
 }
