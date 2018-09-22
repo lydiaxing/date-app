@@ -13,12 +13,12 @@ class Networking {
     
     this.socket = io({ query: { name: name }, reconnection: false });
     // todo: check for errors (socket didn't connect, etc.)
-    
+
     this.socket.on('userList', this.receiveUsers.bind(this));
     this.socket.on('start', this.callInitiateSessionCallback.bind(this));
     this.socket.on('match', this.callMatchCallback.bind(this));
   }
-  
+
   /**
    * Refreshes the list of users
    * @param callback Passes the data (user list) received from the server
@@ -27,7 +27,7 @@ class Networking {
     this.socket.emit('getUsers');
     this.callback = callback;
   }
-  
+
   /**
    * Receives user data
    * @param data List of users received from the server
@@ -37,7 +37,7 @@ class Networking {
     this.callback(this.otherUsers);
     this.callback = () => {};
   }
-  
+
   /**
    * Initiates the session
    * @param name Other persons name
@@ -45,7 +45,7 @@ class Networking {
   initiateSession(name) {
     this.socket.emit('initiateSession', name);
   }
-  
+
   /**
    * Sets the callback
    * @param callback Function to call when the session is about to begin
@@ -53,26 +53,42 @@ class Networking {
   setInitiateSessionCallback(callback) {
     this.initiateSessionCallback = callback;
   }
-  
+
   setMatchCallback(callback) {
     this.matchCallback = callback;
   }
-  
+
   callInitiateSessionCallback(data) {
     if (!this.inSession) {
       this.initiateSessionCallback(data);
       this.inSession = true;
     }
   }
-  
+
   callMatchCallback(data) {
     this.matchCallback(data);
   }
-  
+
   sendImageAPIResult(data) {
     this.socket.emit('imageData', data)
   }
-  
+
+  sendSentimentResult(data) {
+    this.socket.emit('sentimentData', data)
+  }
+
+  sendKeyPhrasesResult(data) {
+    this.socket.emit('keyPhrases', data)
+  }
+
+  emitInterimTranscript(data) {
+    this.socket.emit('interimTranscript', data)
+  }
+
+  emitFinalTranscript(data) {
+    this.socket.emit('finalTranscript', data)
+  }
+
   isInSession() {
     return this.inSession;
   }
