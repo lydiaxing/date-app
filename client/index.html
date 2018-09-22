@@ -71,7 +71,7 @@
           -->
         </div>
         <div data-bind="with: textData">
-          <p data-bind="visible: !isNaN(sentiment)">
+          <p data-bind="visible: parseFloat(sentiment) > 0">
             The conversation is <span data-bind="text: (parseFloat(sentiment).toFixed(4) * 100)"></span>% positive.
           </p>
         </div>
