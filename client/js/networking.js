@@ -11,7 +11,7 @@ class Networking {
     this.matchCallback = () => {};
     this.inSession = false;
     
-    this.socket = io({ query: { name: name }});
+    this.socket = io({ query: { name: name }, reconnection: false });
     // todo: check for errors (socket didn't connect, etc.)
     
     this.socket.on('userList', this.receiveUsers.bind(this));
