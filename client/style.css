@@ -24,18 +24,26 @@ input, button {
   margin: 1em auto;
   width: 100%;
   max-width: 200px; /* TODO: get these values right? */
+  border-radius: 5px;
+}
+
+input {
+  border: 0.1em solid white;
 }
 
 button {
-  background: white none;
+  background: #bfbfbf none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
   transition-duration: 0.4s;
+  border: 0.1em solid #bfbfbf;
 }
 
 button:hover {
-  background: #efc4dc none;
+  background: white none;
+  border-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
 }
 
 .main {
