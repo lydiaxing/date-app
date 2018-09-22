@@ -38,8 +38,15 @@ $(() => {
     networking = new Networking(name);
     
     app.setScreen('userList');
-    networking.queryUsers((data) => {
-      app.setUsers(users); // todo: make sure data is in the right format
-    });
+    refreshUserList();
   });
+  
+  // Refresh button
+  document.getElementById('refresh').addEventListener('click', refreshUserList);
+  
+  function refreshUserList() {
+    networking.queryUsers((data) => {
+      app.setUsers(data);
+    });
+  }
 });
