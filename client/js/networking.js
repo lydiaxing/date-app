@@ -1,8 +1,4 @@
 class Networking {
-  socket = null;
-  otherUsers = [];
-  name = "";
-  
   constructor(name) {
     this.name = name;
     this.socket = io({ query: { name: name }});
@@ -16,6 +12,6 @@ class Networking {
   }
   
   receiveUsers(data) {
-    this.otherUsers = data.filter(name => name != this.name);
+    this.otherUsers = data.filter(name => name !== this.name);
   }
 }

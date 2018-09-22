@@ -8,18 +8,21 @@ let io = require('socket.io')(http);
 
 app.use(express.static('./client/'));
 
-let users = [];
+class User {
+  constructor(name, socket) {
+    this.socket = socket;
+  }
+}
+
+let users = []
 
 io.on('connection', socket => {
-   console.log(socket);
+   //console.log(socket.handshake.query.name);
+   users.push(new User(socket.handshake.query.name, socket));
    
    socket.on('getUsers', socket => {
      socket.emit('userList', users);
    });
-});
-
-io.on('getUsers', socket => {
-  console.log('get users');
 });
 
 http.listen(PORT, () => {

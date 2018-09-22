@@ -7,11 +7,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('canvas');
   const context = canvas.getContext('2d');
 
-  setInterval(function() {
-    context.drawImage(player, 0, 0, canvas.width, canvas.height)
-    canvas.toBlob(function(blob) {
+  setInterval(() => {
+    context.drawImage(player, 0, 0, canvas.width, canvas.height);
+    
+    canvas.toBlob(blob => {
       $.ajax({
-        beforeSend: function(request) {
+        beforeSend: request => {
           request.setRequestHeader("Prediction-Key", "0f1a8c95038f477f8187f0ae3464eb5c");
           request.setRequestHeader("Prediction-key", "0f1a8c95038f477f8187f0ae3464eb5c");
           request.setRequestHeader("Content-Type", "application/octet-stream");
@@ -20,15 +21,17 @@ window.addEventListener('DOMContentLoaded', () => {
         method: "POST",
         data: blob,
         processData: false
-      }).done(function(data) {
-        console.log(data.predictions[0])
-      }).fail(function(err) {
-        console.log('error')
       })
+        .done(data =>  {
+        //console.log(data.predictions[0])
+      })
+        .fail(err => {
+        console.log('error')
+      });
     });
   }, 3000);
 
-  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+  navigator.mediaDevices.getUserMedia(constraints).then(stream => {
     player.srcObject = stream;
   });
 });
