@@ -1,7 +1,8 @@
 const PORT = process.env.PORT || 2000;
 const IDENTIFIER = 'interested';
 
-let app = require('express')();
+const express = require('express');
+const app = express();
 const fs = require('fs');
 const https = require('https').createServer(
   {
