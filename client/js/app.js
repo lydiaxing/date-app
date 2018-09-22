@@ -20,11 +20,13 @@ class DatingApp {
     });
     this.textData = ko.observable({
       transcript: '',
-      keyPhrases: ''
+      interim: '',
+      sentiment: ''
     });
 
     this.postMortem = ko.observable({
-
+      transcript: '',
+      keyPhrases: ''
     })
 
     this.nameClick = this.nameClick.bind(this); // ugly hack to make Knockout cooperate
@@ -55,6 +57,7 @@ $(() => {
 
   let networking;
   let camera;
+  let speech;
 
   // Connect button
   document.getElementById('connect').addEventListener('click', () => {
@@ -75,9 +78,19 @@ $(() => {
           emotionConfidence: camera.emotionConfidence,
           emotionPrediction: camera.emotionPrediction
         });
-        console.log("camera callback", camera.emotionConfidence, camera.emotionPrediction)
       });
       camera.startRequests();
+
+      speech = new SpeechAPI(networking, () => {
+        app.textData({
+          transcript: speech.transcript,
+          interim: speech.interim,
+          sentiment: speech.sentiment
+        });
+        console.log('speech', speech.transcript, speech.interim, speech.sentiment)
+      });
+      speech.startRecognition();
+      speech.startRequests();
 
       app.startTime = new Date();
     });

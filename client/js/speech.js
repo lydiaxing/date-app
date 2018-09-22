@@ -5,13 +5,20 @@ class SpeechAPI {
   /**
     * Creates a new SpeechAPI instance
     */
-  constructor(network) {
+  constructor(network, callback) {
     this.network = network;
+    this.callback = callback;
+
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
     this.transcript = '';
     this.interim = '';
+    this.sentiment = '';
+
+    this.recognition.onstart = () => {
+      console.log('started')
+    }
 
     this.recognition.onresult = (event) => {
       let latest = event.results.length - 1;
@@ -22,13 +29,7 @@ class SpeechAPI {
           this.interim += event.results[latest][0].transcript
         }
       }
-
-      this.network.emitInterimTranscript(this.interim)
-      this.network.emitFinalTranscript(this.transcript)
-    };
-
-    this.recognition.onstart = () => {
-      this.startRequests();
+      console.log("resulting", this.transcript, this.interim)
     };
 
     this.recognition.onerror = (event) => {
@@ -39,6 +40,8 @@ class SpeechAPI {
     this.recognition.onend = () => {
       this.recognition.start();
     };
+
+    this.onReceiveData = this.onReceiveData.bind(this);
   }
 
   /**
@@ -66,27 +69,29 @@ class SpeechAPI {
    * Sends the transcript to the API for sentiment analysis
    */
   sendRequest() {
+    const copy = this.transcript;
     const json = JSON.stringify({
       "documents": [
         {
           "id": "1",
-          "text": this.transcript
+          "text": copy
         }
       ]
     });
 
-    $.ajax({
-      beforeSend: request => {
-        request.setRequestHeader("Ocp-Apim-Subscription-Key", "72826f94bb10406ea7d50687b2566068");
-        request.setRequestHeader("Content-Type", "application/json");
-      },
-      url: SPEECH_URL,
-      method: "POST",
-      data: json
-    }).done(this.onReceiveData)
-    .fail(err => {
-      console.error('error in speech.js: ', err);
-    });
+    if(copy) {
+      $.ajax({
+        beforeSend: request => {
+          request.setRequestHeader("Ocp-Apim-Subscription-Key", "72826f94bb10406ea7d50687b2566068");
+          request.setRequestHeader("Content-Type", "application/json");
+        },
+        url: SPEECH_URL,
+        method: "POST",
+        data: json
+      }).done(this.onReceiveData).fail(err => {
+        console.error('error in speech.js: ', err);
+      });
+    }
   };
 
   /**
@@ -94,8 +99,8 @@ class SpeechAPI {
     * @param data Data received from the API
     */
   onReceiveData(data) {
-    const sentiment = data.documents[0].score
-    this.network.sendSentimentResult(sentiment)
+    this.sentiment = data;
+    this.callback(data);
   }
 
   /**
@@ -103,7 +108,7 @@ class SpeechAPI {
     * @param data Data received from the API
     */
   onReceiveKeyPhrases(data) {
-      const keyPhrases = data.documents[0].keyPhrases;
-      this.network.sendKeyPhrasesResult(keyPhrases)
+    const keyPhrases = data.documents[0].keyPhrases;
+    this.network.sendKeyPhrasesResult(keyPhrases)
   }
 }

@@ -53,14 +53,23 @@
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
         <div data-bind="with: imageData">
-          <p data-bind="text: emotionPrediction">asdf</p>
-          <p data-bind="text: emotionConfidence">asdfasd</p>
+          <p>They're: <span data-bind="text: emotionPrediction"></span>!</p>
+          <p>Confidence: <span data-bind="text: emotionConfidence"></span>%</p>
           <!--
-          <p data-bind="value: realTimeTranscript"></p>
           <p data-bind="value: textSentimentPrediction"></p>
           <p data-bind="value: textSentimentConfidence"></p>
           -->
         </div>
+        <div data-bind="with: textData">
+          <p>
+            Real time transcript:
+            <span style="color:grey" data-bind="text: interim"></span>
+            <span style="color:black" data-bind="text: transcript"></span>
+          </p>
+          <p>
+            The conversation is <span data-bind="text: sentiment"></span>% positive.
+          </p>
+        </data>
       </div>
 
       <div data-bind="visible: currentScreen() == 'match'">
