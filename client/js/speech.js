@@ -1,5 +1,5 @@
-const INTERVAL = 3000;
-const URL = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
+const SPEECH_INTERVAL = 3000;
+const SPEECH_URL = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
 
 class SpeechAPI {
   /**
@@ -23,7 +23,8 @@ class SpeechAPI {
   * Starts requesting data from the sentiment analysis API
   */
   startRequests() {
-    this.interval = window.setInterval(this.sendRequest, INTERVAL);
+    this.sendRequest();
+    // this.interval = window.setInterval(this.sendRequest, SPEECH_INTERVAL);
   }
 
   /**
@@ -37,23 +38,23 @@ class SpeechAPI {
    * Sends the transcript to the API
    */
    sendRequest() {
-     this.json = {
+     var json = JSON.stringify({
        "documents": [
          {
            "id": "1",
            "text": this.transcript
          }
        ]
-     }
+     });
 
      $.ajax({
        beforeSend: request => {
          request.setRequestHeader("Ocp-Apim-Subscription-Key", "72826f94bb10406ea7d50687b2566068");
          request.setRequestHeader("Content-Type", "application/json");
        },
-       url: URL,
+       url: SPEECH_URL,
        method: "POST",
-       data: this.transcript
+       data: json
      })
      .done(this.onReceiveData)
      .fail(err => {
