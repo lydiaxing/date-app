@@ -9,9 +9,13 @@ const io = require('socket.io')(http);
 app.use(express.static('./client/'));
 
 io.on('connection', socket => {
-   console.log('todo');
+   console.log(socket);
 });
 
+io.on('getUsers', socket => {
+  console.log('get users');
+})
+
 http.listen(PORT, () => {
-   console.log("working");
+   console.log("Listening on", PORT);
 });

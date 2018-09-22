@@ -5,8 +5,8 @@ const constraints = {
 };
 
 window.addEventListener('DOMContentLoaded', () => {
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then((stream) => {
-            player.srcObject = stream;
-        });
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+      player.srcObject = stream;
+    });
 });
