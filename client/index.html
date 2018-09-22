@@ -32,7 +32,10 @@
           ¡Welcome to Carnegie Cupid! Fill out your name and
           click the button below to connect to the server
         </p>
-        <input type="text" id="name" placeholder="Enter your name..." />
+
+        <input type="text" id="name" placeholder="Enter your name..."
+               onkeydown="if (event.keyCode === 13) { document.getElementById('connect').click(); event.preventDefault(); }"/>
+
         <button id="connect">Connect</button>
       </div>
 
@@ -49,7 +52,7 @@
       </div>
 
       <div data-bind="visible: currentScreen() == 'session'">
-        <p>You are now chatting with: <b data-bind="text: selectedUser().name"></b></p>
+        <p>You are now chatting with <b data-bind="text: selectedUser().name"></b></p>
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
         <div data-bind="with: textData">

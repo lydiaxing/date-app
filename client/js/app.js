@@ -49,6 +49,7 @@ $(() => {
   // Connect button
   document.getElementById('connect').addEventListener('click', () => {
     const name = document.getElementById('name').value;
+    if (name.trim() === '') return;
     networking = new Networking(name);
   
     // This isn't the best layout for this code but its
