@@ -134,7 +134,9 @@ $(() => {
     });
   }
 
+  /*
   document.getElementById('viewStats').addEventListener('click', () => {
     app.setScreen('postMortem');
   });
+  */
 });
