@@ -54,16 +54,8 @@ button:hover {
   border-color: #b20707;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
-=======
   transition-duration: 0.2s;
   border: 0.1em solid #bfbfbf;
-  cursor: pointer;
-}
-
-button:hover {
-  background: white none;
-  border-color: white;
->>>>>>> 2a6a9010a22eabe35759e58ec604184458a6337c
 }
 
 button:active {
