@@ -22,27 +22,30 @@
 
 <body>
   <div class="main">
-    <div class="header">
-      <h1>Carnegie Cupid</h1>
-    </div>
+    <!-- TODO: is this funny -->
+    <h1>¡Welcome to Carnegie Cupid!</h1>
+
     <div class="content">
-      <div id="welcome" data-bind="visible: currentScreen() == 'welcome'">
+      <div data-bind="visible: currentScreen() == 'welcome'">
         <p>Welcome to Carnegie Cupid! Fill out your name and
           click the button below to connect to the server</p>
         <input type="text" id="name" placeholder="Enter your name..." />
         <button id="connect">Connect</button>
       </div>
 
-      <div id="userList" data-bind="visible: currentScreen() == 'userList'">
-        <p>Please select someone to chat with</p>
+      <div data-bind="visible: currentScreen() == 'userList'">
+        <p>Please select someone else to chat with</p>
         <p data-bind="visible: users().length === 0">No users are currently online. Try refreshing?</p>
-        <div data-bind="foreach: users">
-          <p class="nameOption" data-bind="text: name, click: "></p>
+
+        <div class="userList" data-bind="visible: users().length !== 0, foreach: users">
+          <p class="nameOption" data-bind="text: name, click: $root.nameClick "></p>
         </div>
+
         <button id="refresh">Refresh</button>
       </div>
 
-      <div id="session" data-bind="visible: currentScreen() == 'session'">
+      <div data-bind="visible: currentScreen() == 'session'">
+        <p>You are now chatting with: <b data-bind="text: selectedUser().name"></b></p>
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
         <!--

@@ -10,6 +10,8 @@ class DatingApp {
     this.currentScreen = ko.observable('welcome');
     this.users = ko.observableArray([]);
     this.selectedUser = ko.observable('');
+    
+    this.nameClick = this.nameClick.bind(this); // ugly hack to make Knockout cooperate
   }
   
   /**
@@ -19,11 +21,11 @@ class DatingApp {
   setScreen(screen) {
     this.currentScreen(screen);
   }
-  
-  setUsers(users) {
-    this.users(users);
-  }
-  
+
+  /**
+   * Event handler for user selection
+   * @param name User object passed (not actually the name, that would be name.name)
+   */
   nameClick(name) {
     this.selectedUser(name);
   }
@@ -41,6 +43,13 @@ $(() => {
   document.getElementById('connect').addEventListener('click', () => {
     const name = document.getElementById('name').value;
     networking = new Networking(name);
+  
+    // This isn't the best layout for this code but its
+    // the best I can do under the circumstance :)
+    networking.setInitiateSessionCallback((data) => {
+      app.selectedUser(data);
+      app.setScreen('session');
+    });
     
     app.setScreen('userList');
     refreshUserList();
@@ -51,13 +60,12 @@ $(() => {
   
   function refreshUserList() {
     networking.queryUsers((data) => {
-      app.setUsers(data);
+      app.users(data);
     });
   }
   
   // User names
   app.selectedUser.subscribe((name) => {
-    // todo: initiate session
     networking.initiateSession(name);
   });
 });
