@@ -106,13 +106,9 @@ $(() => {
     // On receive match
     networking.setMatchCallback((data) => {
       app.setScreen('match');
-<<<<<<< HEAD
-
-=======
       
       window.navigator.vibrate(200);
       
->>>>>>> 9544c8611006275b7926f5ab4371c237d2d283f9
       // calculate time taken
       let difference = new Date(new Date() - app.startTime);
       app.time(

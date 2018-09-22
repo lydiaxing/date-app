@@ -18,7 +18,7 @@ class SpeechAPI {
 
     this.recognition.onstart = () => {
       console.log('started')
-    }
+    };
 
     this.recognition.onresult = (event) => {
       let latest = event.results.length - 1;
@@ -79,7 +79,7 @@ class SpeechAPI {
       ]
     });
 
-    if(copy) {
+    if (copy !== '') {
       $.ajax({
         beforeSend: request => {
           request.setRequestHeader("Ocp-Apim-Subscription-Key", "72826f94bb10406ea7d50687b2566068");
