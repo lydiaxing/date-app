@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'Main';
-  src: url('assets/font.ttf');
+  src: font-url('assets/font.ttf');
 }
 
 html, body {
   background-color: #C41E3A;
   color: white;
   font-family: sans-serif;
-  
+
   margin: 0;
   padding: 0;
   width: 100%;
@@ -24,7 +24,7 @@ input, button {
   font: inherit;
   padding: 1em;
   display: block;
-  
+
   margin: 1em auto;
   width: 25%;
 }
@@ -37,10 +37,10 @@ button {
   margin: 3em auto;
   padding: 2em;
   max-width: 1000px; /* TODO: How does this work on phones? */
-  
+
   background-color: rgba(255,255,255,0.13);
   border-radius: 25px;
-  
+
   text-align: center;
 }
 
@@ -52,7 +52,7 @@ button {
 .userList {
   border-radius: 25px;
   border: 2px solid white;
-  
+
   width: 50%;
   margin: 0 auto;
 }
