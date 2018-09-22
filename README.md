@@ -1,2 +1,2 @@
-# date-app
-cmu dating app made for hackcmu
+# KUDOS
+Logo font: Fontdinerdotcom Luvable by Font Diner (dafont.com)

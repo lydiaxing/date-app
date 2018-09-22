@@ -1,7 +1,17 @@
+@font-face {
+  font-family: 'Main';
+  src: url('assets/font.ttf');
+}
+
 html, body {
     width: 100%; height: 100%;
 
     background-color: #C41E3A;
+}
+
+h1 {
+  font-family: "Main";
+  font-weight: normal;
 }
 
 .main {
