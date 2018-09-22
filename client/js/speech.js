@@ -9,14 +9,32 @@ class SpeechAPI {
   constructor() {
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
-    this.recognition.interimResults = true;
+    this.recognition.interimResults = false;
     this.transcript = '';
 
     this.recognition.onresult = function(event) {
-      for (var i = event.resultIndex; i < event.results.length; ++i) {
-        this.transcript += event.results[i][0].transcript;
+      for (var i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          this.transcript = event.results[i][0].transcript;
+        }
       }
+      $("#welcome p").text(this.transcript);
     }
+
+    this.recognition.onerror = function(event) {
+      console.log("speech to text error: ", event.error)
+    }
+
+    this.recognition.onend = function() {
+      console.log("speech to text ended.")
+    }
+  }
+
+  /**
+  * Begins speech to text transcription
+  */
+  startRecognition() {
+    this.recognition.start();
   }
 
   /**
@@ -24,7 +42,7 @@ class SpeechAPI {
   */
   startRequests() {
     this.sendRequest();
-    // this.interval = window.setInterval(this.sendRequest, SPEECH_INTERVAL);
+    this.interval = window.setInterval(this.sendRequest, SPEECH_INTERVAL);
   }
 
   /**
