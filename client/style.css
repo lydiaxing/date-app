@@ -42,15 +42,14 @@ button {
   background: #bfbfbf none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
-  transition-duration: 0.4s;
+  transition-duration: 0.2s;
   border: 0.1em solid #bfbfbf;
+  cursor: pointer;
 }
 
 button:hover {
   background: white none;
   border-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  cursor: pointer;
 }
 
 .main {

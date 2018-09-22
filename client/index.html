@@ -28,8 +28,10 @@
 
     <div class="content">
       <div data-bind="visible: currentScreen() == 'welcome'">
-        <p>¡Welcome to Carnegie Cupid! Fill out your name and
-          click the button below to connect to the server</p>
+        <p>
+          ¡Welcome to Carnegie Cupid! Fill out your name and
+          click the button below to connect to the server
+        </p>
         <input type="text" id="name" placeholder="Enter your name..." />
         <button id="connect">Connect</button>
       </div>
@@ -61,16 +63,23 @@
       </div>
 
       <div data-bind="visible: currentScreen() == 'match'">
-        <p>Congratulations!</p>
+        <h2>Congratulations!</h2>
+        <p>
+          You matched with
+          <b data-bind="text: selectedUser().name"></b>
+          in <span data-bind="text: time()"></span>
+        </p>
         <button id="viewStats">View Statistics</button>
       </div>
 
       <!-- post date analysis -->
       <div data-bind="visible: currentScreen() == 'postMortem'">
-        <!--
-        <p data-bind-"value: transcript"></p>
-        <p data-bind-"value: keyPhrases"></p>
-        -->
+        <div data-bind="with: postMortem">
+          <!--
+          <p data-bind-"value: transcript"></p>
+          <p data-bind-"value: keyPhrases"></p>
+          -->
+        </div>
       </div>
   </div>
 </body>

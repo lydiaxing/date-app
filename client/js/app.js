@@ -10,7 +10,12 @@ class DatingApp {
     this.currentScreen = ko.observable('welcome');
     this.users = ko.observableArray([]);
     this.selectedUser = ko.observable('');
+    
+    this.time = ko.observable('');
+    this.startTime = new Date();
+    
     this.textData = ko.observable({});
+    this.postMortem = ko.observable({});
     
     this.nameClick = this.nameClick.bind(this); // ugly hack to make Knockout cooperate
   }
@@ -57,6 +62,8 @@ $(() => {
       // Session code
       camera = new CameraAPI(networking, () => {});
       camera.startRequests();
+      
+      app.startTime = new Date();
     });
   
     // User names
@@ -67,6 +74,12 @@ $(() => {
     // On receive match
     networking.setMatchCallback((data) => {
       app.setScreen('match');
+      
+      // calculate time taken
+      let difference = new Date(new Date() - app.startTime);
+      app.time(
+        (difference.getMinutes() === 0 ? difference.getMinutes() +'m ' : '' ) +
+        (difference.getSeconds()) + 's');
     });
     
     app.setScreen('userList');
