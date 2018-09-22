@@ -13,6 +13,7 @@ class SpeechAPI {
     this.transcript = '';
 
     this.recognition.onresult = function(event) {
+      $("#welcome p").text("recognition picked up");
       for (var i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
           this.transcript = event.results[i][0].transcript;
@@ -35,6 +36,7 @@ class SpeechAPI {
   */
   startRecognition() {
     this.recognition.start();
+    $("#welcome p").text("recognition starting");
   }
 
   /**
