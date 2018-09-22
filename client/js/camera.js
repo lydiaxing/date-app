@@ -26,7 +26,7 @@ class CameraAPI {
    * Starts requesting data from the image API
    */
   startRequests() {
-    this.interval = window.setInterval(this.sendRequest, INTERVAL);
+    this.interval = window.setInterval(this.sendRequest.bind(this), INTERVAL);
   }
 
   /**
