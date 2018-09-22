@@ -5,6 +5,8 @@ class Networking {
    */
   constructor(name) {
     this.name = name;
+    this.otherUsers = [];
+    
     this.socket = io({ query: { name: name }});
     // todo: check for errors (socket didn't connect, etc.)
     
