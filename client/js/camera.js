@@ -3,7 +3,7 @@ const constraints = {
 };
 
 const INTERVAL = 3000;
-const URL = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/68d11203-e168-4fc1-bc7c-fd15f7382000/image?iterationId=05c76556-313b-40da-89ce-4ee9c40357c6"
+const URL = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/24aed5d6-c24f-4ae2-9500-cdbd20ecab05/url?iterationId=9ff6fef5-eaf4-4fd6-af89-32d567919772"
 
 class CameraAPI {
   /**
@@ -22,7 +22,7 @@ class CameraAPI {
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       this.player.srcObject = stream;
     });
-    
+
     this.onReceiveData = this.onReceiveData.bind(this);
   }
 
