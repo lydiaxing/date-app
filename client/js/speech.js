@@ -8,22 +8,31 @@ class SpeechAPI {
   constructor() {
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
-    this.recognition.interimResults = false;
+    this.recognition.interimResults = true;
     this.transcript = '';
+    this.interim = '';
 
-    this.recognition.onresult = function(event) {
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        this.transcript += event.results[i][0].transcript;
+    this.recognition.onresult = (event) => {
+      let latest = event.results.length - 1;
+      if(event.results[latest][0].transcript) {
+        if(event.results[latest].isFinal) {
+          this.transcript += event.results[latest][0].transcript
+        } else {
+          this.interim += event.results[latest][0].transcript
+        }
       }
-      $("#welcome p").text(this.transcript);
+      //TODO: update html based on these values
+      console.log('interm', this.interim)
+      console.log('final', this.transcript)
     }
 
     this.recognition.onerror = function(event) {
       console.log("speech to text error: ", event.error)
     }
 
-    this.recognition.onend = function() {
-      console.log("speech to text ended.")
+    //prevent auto-stopping after silence
+    this.recognition.onend = () => {
+      this.recognition.start();
     }
   }
 
@@ -32,14 +41,12 @@ class SpeechAPI {
   */
   startRecognition() {
     this.recognition.start();
-    $("#welcome p").text("recognition starting");
   }
 
   /**
    * Starts requesting data from the sentiment analysis API
    */
   startRequests() {
-    this.sendRequest();
     this.interval = window.setInterval(this.sendRequest, SPEECH_INTERVAL);
   }
 
