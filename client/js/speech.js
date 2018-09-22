@@ -1,5 +1,5 @@
 const INTERVAL = 3000;
-const URL = '';
+const URL = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
 
 class SpeechAPI {
   /**
@@ -37,7 +37,20 @@ class SpeechAPI {
    * Sends the transcript to the API
    */
    sendRequest() {
+     this.json = {
+       "documents": [
+         {
+           "id": "1",
+           "text": this.transcript
+         }
+       ]
+     }
+
      $.ajax({
+       beforeSend: request => {
+         request.setRequestHeader("Ocp-Apim-Subscription-Key", "72826f94bb10406ea7d50687b2566068");
+         request.setRequestHeader("Content-Type", "application/json");
+       },
        url: URL,
        method: "POST",
        data: this.transcript
