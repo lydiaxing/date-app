@@ -12,9 +12,16 @@ html, body {
   background-repeat: repeat;
 }
 
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
 h1 {
   font-family: "Sacramento", sans-serif;
   font-weight: normal;
+  font-size: 2.5em;
 }
 
 input, button {
@@ -36,6 +43,7 @@ button {
   background: #6B0504 none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 5px;
+<<<<<<< HEAD
   transition-duration: 0.4s;
   border: 0.1em solid #6B0504;
   color: inherit;
@@ -46,6 +54,16 @@ button:hover {
   border-color: #b20707;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
+=======
+  transition-duration: 0.2s;
+  border: 0.1em solid #bfbfbf;
+  cursor: pointer;
+}
+
+button:hover {
+  background: white none;
+  border-color: white;
+>>>>>>> 2a6a9010a22eabe35759e58ec604184458a6337c
 }
 
 button:active {
@@ -57,7 +75,8 @@ button:active {
   margin: 3em auto;
   padding: 2em;
   max-width: 1000px;
-  /* TODO: How does this work on phones? */
+  width: 75%;
+
   background-color: #C41230;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 25px;

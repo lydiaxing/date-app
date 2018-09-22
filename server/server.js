@@ -47,12 +47,14 @@ class Session {
     this.user1.socket.emit('match', data); // possibly add other data?
     this.user2.socket.emit('match', data);
     
-    // TODO: end session
+    // this is untested
+    this.user1.socket.disconnect();
+    this.user2.socket.disconnect();
   }
 }
 
-var users = [];
-var sessions = [];
+let users = [];
+let sessions = [];
 
 io.on('connection', socket => {
   let user = new User(socket.handshake.query.name, socket);
