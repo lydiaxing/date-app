@@ -9,6 +9,7 @@ class DatingApp {
   constructor() {
     this.currentScreen = ko.observable('welcome');
     this.users = ko.observableArray([]);
+    this.selectedUser = ko.observable('');
   }
   
   /**
@@ -21,6 +22,10 @@ class DatingApp {
   
   setUsers(users) {
     this.users(users);
+  }
+  
+  nameClick(name) {
+    this.selectedUser(name);
   }
 }
 
@@ -49,4 +54,10 @@ $(() => {
       app.setUsers(data);
     });
   }
+  
+  // User names
+  app.selectedUser.subscribe((name) => {
+    // todo: initiate session
+    networking.initiateSession(name);
+  });
 });

@@ -38,9 +38,9 @@
       <div id="userList" data-bind="visible: currentScreen() == 'userList'">
         <p>Please select someone to chat with</p>
         <p data-bind="visible: users().length === 0">No users are currently online. Try refreshing?</p>
-        <ul data-bind="foreach: users">
-          <li data-bind="text: name"></li>
-        </ul>
+        <div data-bind="foreach: users">
+          <p class="nameOption" data-bind="text: name, click: "></p>
+        </div>
         <button id="refresh">Refresh</button>
       </div>
 
