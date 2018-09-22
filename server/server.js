@@ -21,6 +21,9 @@ class Session {
     this.user1 = user1;
     this.user2 = user2;
     
+    this.user1.session = this;
+    this.user2.session = this;
+    
     // i know its not optimal
     this.user1positive = false;
     this.user2positive = false;
@@ -43,6 +46,8 @@ class Session {
     const data = {};
     this.user1.socket.emit('match', data); // possibly add other data?
     this.user2.socket.emit('match', data);
+    
+    // TODO: end session
   }
 }
 
@@ -51,7 +56,6 @@ var sessions = [];
 
 io.on('connection', socket => {
   let user = new User(socket.handshake.query.name, socket);
-  let session;
   users.push(user);
   
   let myUsers = users; // i dont know why but we need to save this pointer
@@ -67,20 +71,19 @@ io.on('connection', socket => {
     user.isInSession = true;
     other.isInSession = true;
     
-    session = new Session(user, other);
-    sessions.push(session);
+    sessions.push(new Session(user, other));
   });
   
   socket.on('imageData', data => {
-    const isPositive = false; // TODO: get from data
-    if (user.name === session.user1.name) session.user1positive = isPositive;
-    else session.user2positive = isPositive;
+    const isPositive = data === 'human'; // TODO: get from data
     
-    if (session.user1positive && session.user2positive) {
-      session.emitMatch();
-    }
+    if (user.name === user.session.user1.name) user.session.user1positive = isPositive;
+    else user.session.user2positive = isPositive;
     
-    console.log(data);
+    if (user.session.user1positive && user.session.user2positive)
+      user.session.emitMatch();
+    
+    console.log(`${user.session.user1.name} is ${user.session.user1positive} and ${user.session.user2.name} is ${user.session.user2positive}`);
   });
   
   socket.on('disconnect', reason => {
