@@ -21,22 +21,28 @@ class Session {
     this.user1 = user1;
     this.user2 = user2;
     
-    emitStart(this.user1); emitStart(this.user2);
+    this.emitStart();
   }
   
   emitStart(user) {
-    user.socket.emit('start', {
-      // todo: data
-    })
+    this.user1.socket.emit('start', {
+      name: this.user2.name // name of the other person
+    });
+    
+    this.user2.socket.emit('start', {
+      name: this.user1.name
+    });
   }
 }
 
-let users = [];
-let sessions = [];
+var users = [];
+var sessions = [];
 
 io.on('connection', socket => {
   let user = new User(socket.handshake.query.name, socket);
   users.push(user);
+  
+  let myUsers = users; // i dont know why but we need to save this pointer
   
   socket.on('getUsers', () => {
     socket.emit('userList', getPossibleUsersList());
@@ -45,7 +51,10 @@ io.on('connection', socket => {
   socket.on('initiateSession', (otherName) => {
     // in the future we need to make sure the user exists
     // otherwise malicious users can exploit this.
-    let other = findUser(otherName);
+    let other = findUser(myUsers, otherName.name);
+    user.isInSession = true;
+    other.isInSession = true;
+    
     let session = new Session(user, other);
     sessions.push(session);
   });
@@ -53,11 +62,12 @@ io.on('connection', socket => {
 
 /**
  * Finds the User object in the array
+ * @param array Array to search in
  * @param name The name of the user
  * @returns {User} Found user (undefined behaviour if name is not in the array)
  */
-function findUser(name) {
-  return users.find(user => user.name === name);
+function findUser(array, name) {
+  return array.find(user => user.name === name);
 }
 
 /**

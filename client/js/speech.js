@@ -4,7 +4,6 @@ const SPEECH_URL = 'https://westcentralus.api.cognitive.microsoft.com/text/analy
 class SpeechAPI {
   /**
     * Creates a new SpeechAPI instance
-    * @param
     */
   constructor() {
     this.recognition = new webkitSpeechRecognition();
@@ -13,11 +12,8 @@ class SpeechAPI {
     this.transcript = '';
 
     this.recognition.onresult = function(event) {
-      $("#welcome p").text("recognition picked up");
-      for (var i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) {
-          this.transcript = event.results[i][0].transcript;
-        }
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        this.transcript += event.results[i][0].transcript;
       }
       $("#welcome p").text(this.transcript);
     }
@@ -40,16 +36,16 @@ class SpeechAPI {
   }
 
   /**
-  * Starts requesting data from the sentiment analysis API
-  */
+   * Starts requesting data from the sentiment analysis API
+   */
   startRequests() {
     this.sendRequest();
     this.interval = window.setInterval(this.sendRequest, SPEECH_INTERVAL);
   }
 
   /**
-  * Stops sending requests
-  */
+   * Stops sending requests
+   */
   stopRequests() {
     window.clearInterval(this.interval);
   }
@@ -58,7 +54,7 @@ class SpeechAPI {
    * Sends the transcript to the API
    */
    sendRequest() {
-     var json = JSON.stringify({
+     const json = JSON.stringify({
        "documents": [
          {
            "id": "1",
@@ -88,6 +84,6 @@ class SpeechAPI {
     */
     onReceiveData(data) {
       console.log(data);
-      //TODO: send to server
+      // TODO: send to server
     }
 }

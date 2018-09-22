@@ -2,17 +2,18 @@ class Networking {
   /**
    * Container object for all client side networking operatinos
    * @param name The users display name
-   * @param initiateCallback Function to call when the session is about to begin
    */
-  constructor(name, initiateCallback) {
+  constructor(name) {
+    // default initialized values
     this.name = name;
     this.otherUsers = [];
+    this.initiateSessionCallback = () => {};
     
     this.socket = io({ query: { name: name }});
     // todo: check for errors (socket didn't connect, etc.)
     
     this.socket.on('userList', this.receiveUsers.bind(this));
-    this.socket.on()
+    this.socket.on('start', this.callInitiateSessionCallback.bind(this));
   }
   
   /**
@@ -40,5 +41,17 @@ class Networking {
    */
   initiateSession(name) {
     this.socket.emit('initiateSession', name);
+  }
+  
+  /**
+   * Sets the callback
+   * @param callback Function to call when the session is about to begin
+   */
+  setInitiateSessionCallback(callback) {
+    this.initiateSessionCallback = callback;
+  }
+  
+  callInitiateSessionCallback(data) {
+    this.initiateSessionCallback(data);
   }
 }

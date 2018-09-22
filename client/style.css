@@ -45,7 +45,16 @@ button {
 }
 
 .nameOption {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
+.userList {
+  border-radius: 25px;
+  border: 2px solid white;
+  
+  width: 50%;
+  margin: 0 auto;
 }
 
 #canvas {
