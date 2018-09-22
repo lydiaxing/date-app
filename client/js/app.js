@@ -58,7 +58,12 @@ $(() => {
       camera = new CameraAPI(networking, () => {});
       camera.startRequests();
     });
-    
+  
+    // User names
+    app.selectedUser.subscribe(name => {
+      if (!networking.isInSession()) networking.initiateSession(name);
+    });
+
     // On receive match
     networking.setMatchCallback((data) => {
       app.setScreen('match');
@@ -76,11 +81,6 @@ $(() => {
       app.users(data);
     });
   }
-  
-  // User names
-  app.selectedUser.subscribe(name => {
-    networking.initiateSession(name);
-  });
   
   document.getElementById('viewStats').addEventListener('click', () => {
     app.setScreen('postMortem');

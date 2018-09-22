@@ -72,4 +72,8 @@ class Networking {
   sendImageAPIResult(data) {
     this.socket.emit('imageData', data)
   }
+  
+  isInSession() {
+    return this.inSession;
+  }
 }
