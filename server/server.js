@@ -2,19 +2,28 @@ const express = require('express');
 
 const PORT = process.env.PORT || 2000;
 
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+let app = express();
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
 
 app.use(express.static('./client/'));
 
-io.on('connection', socket => {
-   console.log(socket);
-});
+class User {
+  constructor(name, socket) {
+    this.socket = socket;
+  }
+}
 
-io.on('getUsers', socket => {
-  console.log('get users');
-})
+let users = []
+
+io.on('connection', socket => {
+   //console.log(socket.handshake.query.name);
+   users.push(new User(socket.handshake.query.name, socket));
+   
+   socket.on('getUsers', socket => {
+     socket.emit('userList', users);
+   });
+});
 
 http.listen(PORT, () => {
    console.log("Listening on", PORT);
