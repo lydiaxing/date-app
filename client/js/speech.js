@@ -27,10 +27,6 @@ class SpeechAPI {
       console.log('final', this.transcript)
     }
 
-    this.recognition.onstart = () => {
-      this.startRequests();
-    }
-
     this.recognition.onerror = (event) => {
       console.log("speech to text error: ", event.error);
     }
