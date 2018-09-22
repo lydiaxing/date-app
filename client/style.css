@@ -54,6 +54,9 @@ button:hover {
   background: #b20707 none;
   border-color: #b20707;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+  transition-duration: 0.2s;
+  border: 0.1em solid #bfbfbf;
 }
 
 button:active {
