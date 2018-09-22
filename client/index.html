@@ -9,11 +9,9 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="style.css" rel="stylesheet" type="text/css"/>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/core.js"></script>
-
   <script src="js/lib/jQuery.js"></script>
   <script src="js/lib/knockout.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 
   <script src="js/networking.js"></script>
   <script src="js/camera.js"></script>
@@ -49,13 +47,20 @@
         <p>You are now chatting with: <b data-bind="text: selectedUser().name"></b></p>
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
-        <!--
-        <p data-bind="value: emotionPrediction"></p>
-        <p data-bind="value: emotionConfidence"></p>
-        <p data-bind="value: realTimeTranscript"></p>
-        <p data-bind="value: textSentimentPrediction"></p>
-        <p data-bind="value: textSentimentConfidence"></p>
-        -->
+        <div data-bind="with: textData">
+          <!--
+          <p data-bind="value: emotionPrediction"></p>
+          <p data-bind="value: emotionConfidence"></p>
+          <p data-bind="value: realTimeTranscript"></p>
+          <p data-bind="value: textSentimentPrediction"></p>
+          <p data-bind="value: textSentimentConfidence"></p>
+          -->
+        </div>
+      </div>
+
+      <div data-bind="visible: currentScreen == 'match'">
+        <p>Congratulations!</p>
+        <button id="viewStats">View Statistics</button>
       </div>
 
       <!-- post date analysis -->

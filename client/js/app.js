@@ -10,6 +10,7 @@ class DatingApp {
     this.currentScreen = ko.observable('welcome');
     this.users = ko.observableArray([]);
     this.selectedUser = ko.observable('');
+    this.textData = ko.observable({});
     
     this.nameClick = this.nameClick.bind(this); // ugly hack to make Knockout cooperate
   }
@@ -60,7 +61,7 @@ $(() => {
     
     // On receive match
     networking.setMatchCallback((data) => {
-      app.setScreen('match')
+      app.setScreen('match');
     });
     
     app.setScreen('userList');
@@ -79,5 +80,9 @@ $(() => {
   // User names
   app.selectedUser.subscribe(name => {
     networking.initiateSession(name);
+  });
+  
+  document.getElementById('viewStats').addEventListener('click', () => {
+    app.setScreen('postMortem');
   });
 });
