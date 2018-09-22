@@ -4,7 +4,9 @@ const constraints = {
   video: true,
 };
 
-navigator.mediaDevices.getUserMedia(constraints)
-  .then((stream) => {
-    player.srcObject = stream;
+window.addEventListener('DOMContentLoaded', () => {
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+            player.srcObject = stream;
+        });
 });
