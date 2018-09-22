@@ -78,7 +78,7 @@ $(() => {
       // calculate time taken
       let difference = new Date(new Date() - app.startTime);
       app.time(
-        (difference.getMinutes() === 0 ? difference.getMinutes() +'m ' : '' ) +
+        (difference.getMinutes() !== 0 ? difference.getMinutes() +'m ' : '' ) +
         (difference.getSeconds()) + 's');
     });
     
