@@ -38,6 +38,7 @@ $(() => {
   ko.applyBindings(app);
   
   let networking;
+  let camera;
   
   // Connect button
   document.getElementById('connect').addEventListener('click', () => {
@@ -46,9 +47,20 @@ $(() => {
   
     // This isn't the best layout for this code but its
     // the best I can do under the circumstance :)
-    networking.setInitiateSessionCallback((data) => {
+    
+    // Code to be run after we have connected to another user
+    networking.setInitiateSessionCallback(data => {
       app.selectedUser(data);
       app.setScreen('session');
+      
+      // Session code
+      camera = new CameraAPI(networking, () => {});
+      camera.startRequests();
+    });
+    
+    // On receive match
+    networking.setMatchCallback((data) => {
+      app.setScreen('match')
     });
     
     app.setScreen('userList');
@@ -59,13 +71,13 @@ $(() => {
   document.getElementById('refresh').addEventListener('click', refreshUserList);
   
   function refreshUserList() {
-    networking.queryUsers((data) => {
+    networking.queryUsers(data => {
       app.users(data);
     });
   }
   
   // User names
-  app.selectedUser.subscribe((name) => {
+  app.selectedUser.subscribe(name => {
     networking.initiateSession(name);
   });
 });

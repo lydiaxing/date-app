@@ -24,7 +24,7 @@ class Session {
     this.emitStart();
   }
   
-  emitStart(user) {
+  emitStart() {
     this.user1.socket.emit('start', {
       name: this.user2.name // name of the other person
     });
@@ -33,13 +33,21 @@ class Session {
       name: this.user1.name
     });
   }
+  
+  emitMatch() {
+    const data = {};
+    this.user1.socket.emit('match', data); // possibly add other data?
+    this.user2.socket.emit('match', data);
+  }
 }
 
 var users = [];
 var sessions = [];
 
+// TODO: remove user on disconnect
 io.on('connection', socket => {
   let user = new User(socket.handshake.query.name, socket);
+  let session;
   users.push(user);
   
   let myUsers = users; // i dont know why but we need to save this pointer
@@ -55,8 +63,19 @@ io.on('connection', socket => {
     user.isInSession = true;
     other.isInSession = true;
     
-    let session = new Session(user, other);
+    session = new Session(user, other);
     sessions.push(session);
+  });
+  
+  socket.on('imageData', data => {
+    // TODO
+    console.log(data);
+  });
+  
+  socket.on('disconnect', reason => {
+    // hopefully he wasnt in a session because
+    // thats not handled currently
+    users = users.filter(a => a !== user);
   });
 });
 
@@ -79,9 +98,7 @@ function getPossibleUsersList() {
   
   for (let user of users) {
     if (!user.isInSession) {
-      result.push({
-        name: user.name
-      });
+      result.push({ name: user.name });
     }
   }
   
@@ -89,5 +106,5 @@ function getPossibleUsersList() {
 }
 
 http.listen(PORT, () => {
-  console.log("Listening on", PORT);
+  console.log("date-app server listening on", PORT);
 });
