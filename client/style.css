@@ -6,11 +6,11 @@
 html, body {
   background-color: #C41E3A;
   color: white;
-  
-  font-family: sans-serif;
-  
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  padding: 0;
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 h1 {
@@ -24,11 +24,21 @@ h1 {
   flex-direction: column;
 }
 
+.content {
+  text-align: center;
+  padding: 5vw;
+}
+
 #canvas {
-  display: none
+  display: none;
 }
 
 #player {
   max-width: 500px;
   max-height: 500px;
+}
+
+button {
+  border-radius: 1px solid black;
+  padding: 5px 10px;
 }
