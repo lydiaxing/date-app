@@ -35,6 +35,10 @@
 
       <div id="userList" data-bind="visible: currentScreen() == 'userList'">
         <p>Please select a list </p>
+        <ul data-bind="foreach: users">
+          <li data-bind="text: name"></li>
+        </ul>
+        <button id="refresh">Refresh</button>
       </div>
 
       <div id="session" data-bind="visible: currentScreen() == 'session'">

@@ -8,6 +8,7 @@ class DatingApp {
    */
   constructor() {
     this.currentScreen = ko.observable('welcome');
+    this.users = ko.observableArray([]);
   }
   
   /**
@@ -16,6 +17,10 @@ class DatingApp {
    */
   setScreen(screen) {
     this.currentScreen(screen);
+  }
+  
+  setUsers(users) {
+    this.users(users);
   }
 }
 
@@ -26,11 +31,15 @@ $(() => {
   ko.applyBindings(app);
   
   let networking;
+  
   // Connect button
   document.getElementById('connect').addEventListener('click', () => {
     const name = document.getElementById('name').value;
     networking = new Networking(name);
     
     app.setScreen('userList');
+    networking.queryUsers((data) => {
+      app.setUsers(users); // todo: make sure data is in the right format
+    });
   });
 });

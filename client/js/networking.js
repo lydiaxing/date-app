@@ -15,9 +15,11 @@ class Networking {
   
   /**
    * Refreshes the list of users
+   * @param callback Passes the data (user list) received from the server
    */
-  queryUsers() {
+  queryUsers(callback) {
     this.socket.emit('getUsers');
+    this.callback = callback;
   }
   
   /**
@@ -26,5 +28,7 @@ class Networking {
    */
   receiveUsers(data) {
     this.otherUsers = data.filter(name => name !== this.name);
+    this.callback(this.otherUsers);
+    this.callback = () => {};
   }
 }
