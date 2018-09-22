@@ -25,16 +25,18 @@
     <div class="header">
       <h1>Carnegie Cupid</h1>
     </div>
-    <!--
-    <video id="player" controls autoplay></video>
-    <canvas id="canvas"></canvas>
-    -->
     <div class="content">
       <div id="welcome" data-bind="visible: currentScreen() == 'welcome'">
         <p>Welcome to Carnegie Cupid! Fill out your name and
           click the button below to connect to the server</p>
         <input type="text" id="name" placeholder="Enter your name..." />
         <button id="connect">Connect</button>
+      </div>
+      <div id="session" data-bind="visible: currentScreen() == 'session'">
+        <video id="player" autoplay></video>
+        <canvas id="canvas"></canvas>
+        <p data-bind="value: prediction"></p>
+        <p data-bind="value: confidence"></p>
       </div>
     </div>
   </div>
