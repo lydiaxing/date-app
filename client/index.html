@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Carnegie Cupid | Find Love Today!</title>
-  <link rel="icon" href="assets/favicon.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="assets/favicon.png" sizes="16x16" type="image/png" />
 
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
-  <link href="style.css" rel="stylesheet" type="text/css"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
 
   <script src="js/lib/jQuery.js"></script>
   <script src="js/lib/knockout.js"></script>
@@ -23,8 +23,11 @@
 
 <body>
   <div class="main">
+<<<<<<< HEAD
     <!-- TODO: is this funny -->
     <img class="logo" src="assets/dog.png"></img>
+=======
+>>>>>>> 4e99d136c62edd053bda0d6f3681d875c7be3fbc
     <h1>Carnegie Cupid</h1>
     <p data-bind="visible: myName() !== ''">Your name is <b data-bind="text: myName()"></b></p>
 
@@ -61,8 +64,8 @@
         <video id="player" autoplay></video>
         <canvas id="canvas"></canvas>
         <div data-bind="with: imageData">
-          <p>They're: <span data-bind="text: emotionPrediction"></span>!</p>
-          <p>Confidence: <span data-bind="text: emotionConfidence"></span>%</p>
+          <p>They're <b data-bind="text: emotionPrediction"></b>!</p>
+          <p>Confidence: <b data-bind="text: (parseFloat(emotionConfidence).toFixed(4) * 100)"></b>%</p>
           <!--
           <p data-bind="value: textSentimentPrediction"></p>
           <p data-bind="value: textSentimentConfidence"></p>
@@ -70,14 +73,13 @@
         </div>
         <div data-bind="with: textData">
           <p>
-            Real time transcript:
-            <span style="color:grey" data-bind="text: interim"></span>
-            <span style="color:black" data-bind="text: transcript"></span>
+            Transcript:
+            <span data-bind="text: transcript"></span>
           </p>
           <p>
-            The conversation is <span data-bind="text: sentiment"></span>% positive.
+            The conversation is <span data-bind="text: (parseFloat(sentiment).toFixed(4) * 100)"></span>% positive.
           </p>
-        </data>
+        </div>
       </div>
 
       <div data-bind="visible: currentScreen() == 'match'">
@@ -87,6 +89,7 @@
           <b data-bind="text: selectedUser().name"></b>
           in <span data-bind="text: time()"></span>
         </p>
+
         <button id="viewStats">View Statistics</button>
       </div>
 

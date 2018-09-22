@@ -17,19 +17,18 @@ class SpeechAPI {
     this.sentiment = '';
 
     this.recognition.onstart = () => {
-      console.log('started')
+      console.log('started');
     };
 
     this.recognition.onresult = (event) => {
       let latest = event.results.length - 1;
       if (event.results[latest][0].transcript) {
         if (event.results[latest].isFinal) {
-          this.transcript += event.results[latest][0].transcript
+          this.transcript += event.results[latest][0].transcript;
         } else {
-          this.interim += event.results[latest][0].transcript
+          this.interim += event.results[latest][0].transcript;
         }
       }
-      console.log("resulting", this.transcript, this.interim)
     };
 
     this.recognition.onerror = (event) => {
@@ -38,7 +37,10 @@ class SpeechAPI {
 
     //prevent auto-stopping after silence
     this.recognition.onend = () => {
+      /*
+      this.recognition.stop();
       this.recognition.start();
+      */
     };
 
     this.onReceiveData = this.onReceiveData.bind(this);
@@ -51,6 +53,10 @@ class SpeechAPI {
     this.recognition.start();
   }
 
+  stopRecognition() {
+    this.recognition.stop();
+  }
+  
   /**
    * Starts requesting data from the sentiment analysis API
    */
@@ -109,6 +115,5 @@ class SpeechAPI {
     */
   onReceiveKeyPhrases(data) {
     const keyPhrases = data.documents[0].keyPhrases;
-    this.network.sendKeyPhrasesResult(keyPhrases)
   }
 }

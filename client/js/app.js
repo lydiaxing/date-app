@@ -19,6 +19,7 @@ class DatingApp {
       emotionPrediction: '',
       emotionConfidence: ''
     });
+    
     this.textData = ko.observable({
       transcript: '',
       interim: '',
@@ -28,7 +29,7 @@ class DatingApp {
     this.postMortem = ko.observable({
       transcript: '',
       keyPhrases: ''
-    })
+    });
 
     this.nameClick = this.nameClick.bind(this); // ugly hack to make Knockout cooperate
   }
@@ -83,12 +84,12 @@ $(() => {
         });
       });
       camera.startRequests();
-
+      
       speech = new SpeechAPI(networking, () => {
         app.textData({
           transcript: speech.transcript,
           interim: speech.interim,
-          sentiment: speech.sentiment
+          sentiment: speech.sentiment.documents[0].score
         });
         console.log('speech', speech.transcript, speech.interim, speech.sentiment)
       });
@@ -106,6 +107,10 @@ $(() => {
     // On receive match
     networking.setMatchCallback((data) => {
       app.setScreen('match');
+      
+      camera.stopRequests();
+      speech.stopRecognition();
+      speech.stopRequests();
       
       window.navigator.vibrate(200);
       
