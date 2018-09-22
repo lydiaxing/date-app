@@ -22,6 +22,7 @@ h1 {
   font-family: "Sacramento", sans-serif;
   font-weight: normal;
   font-size: 2.5em;
+  margin: 0;
 }
 
 input, button {
@@ -62,7 +63,7 @@ button:active {
 
 .main {
   margin: 3em auto;
-  padding: 2em;
+  padding: 3em 2em;
   max-width: 1000px;
   width: 75%;
 
@@ -81,9 +82,6 @@ button:active {
   margin: 0 auto;
 }
 
-<<<<<<< HEAD
-canvas {
-=======
 table {
   border-collapse: collapse;
   color: black;
@@ -109,7 +107,6 @@ tr:nth-child(even) {
 }
 
 #canvas {
->>>>>>> b0d30dc97f071cd010c2156fc3f839e0ee846943
   display: none;
 }
 

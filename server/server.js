@@ -3,8 +3,14 @@ const express = require('express');
 const PORT = process.env.PORT || 2000;
 
 let app = express();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+const fs = require('fs');
+const https = require('https').createServer(
+  {
+    key: fs.readFileSync('./server/ssl/server.key'),
+    cert: fs.readFileSync('./server/ssl/server.cert')
+  },
+  app);
+let io = require('socket.io')(https);
 
 app.use(express.static('./client/'));
 
@@ -123,6 +129,6 @@ function getPossibleUsersList() {
   return result;
 }
 
-http.listen(PORT, () => {
+https.listen(PORT, () => {
   console.log("date-app server listening on", PORT);
 });
