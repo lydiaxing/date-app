@@ -21,8 +21,13 @@ class Session {
     this.user1 = user1;
     this.user2 = user2;
     
+    // i know its not optimal
+    this.user1positive = false;
+    this.user2positive = false;
+    
     this.emitStart();
   }
+  
   
   emitStart() {
     this.user1.socket.emit('start', {
@@ -44,7 +49,6 @@ class Session {
 var users = [];
 var sessions = [];
 
-// TODO: remove user on disconnect
 io.on('connection', socket => {
   let user = new User(socket.handshake.query.name, socket);
   let session;
@@ -68,13 +72,22 @@ io.on('connection', socket => {
   });
   
   socket.on('imageData', data => {
-    // TODO
+    const isPositive = false; // TODO: get from data
+    if (user.name === session.user1.name) session.user1positive = isPositive;
+    else session.user2positive = isPositive;
+    
+    if (session.user1positive && session.user2positive) {
+      session.emitMatch();
+    }
+    
     console.log(data);
   });
   
   socket.on('disconnect', reason => {
     // hopefully he wasnt in a session because
     // thats not handled currently
+    
+    // very inefficient but oh well
     users = users.filter(a => a !== user);
   });
 });
