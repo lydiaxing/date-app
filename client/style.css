@@ -25,6 +25,12 @@ h1 {
   margin: 0;
 }
 
+.logo {
+  height: auto;
+  max-width: 5em;
+  vertical-align: center;
+}
+
 input, button {
   font: inherit;
   padding: 1em;
@@ -39,7 +45,7 @@ input, button {
 input {
   border: 0.1em solid white;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  
+
 }
 
 button {
