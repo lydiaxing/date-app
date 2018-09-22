@@ -14,6 +14,10 @@ class User {
   }
 }
 
+class Session {
+
+}
+
 let users = []
 
 io.on('connection', socket => {
@@ -24,6 +28,10 @@ io.on('connection', socket => {
      socket.emit('userList', users);
    });
 });
+
+function findUser(name) {
+  return users.find(user => user.name === name);
+}
 
 http.listen(PORT, () => {
    console.log("Listening on", PORT);
