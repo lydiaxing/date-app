@@ -23,23 +23,27 @@ class SpeechAPI {
       }
 
       //TODO: update html based on these values
-      console.log('interm', this.interim)
+      console.log('interm', this.interim);
       console.log('final', this.transcript)
-    }
+    };
+
+    this.recognition.onstart = () => {
+      this.startRequests();
+    };
 
     this.recognition.onerror = (event) => {
       console.log("speech to text error: ", event.error);
-    }
+    };
 
     //prevent auto-stopping after silence
     this.recognition.onend = () => {
       this.recognition.start();
-    }
+    };
   }
 
   /**
-  * Begins speech to text transcription
-  */
+   * Begins speech to text transcription
+   */
   startRecognition() {
     this.recognition.start();
   }
@@ -62,7 +66,7 @@ class SpeechAPI {
    * Sends the transcript to the API
    */
   sendRequest() {
-    let json = JSON.stringify({
+    const json = JSON.stringify({
       "documents": [
         {
           "id": "1",

@@ -22,7 +22,8 @@ input, button {
   padding: 1em;
   display: block;
   margin: 1em auto;
-  width: 25%;
+  width: 100%;
+  max-width: 200px; /* TODO: get these values right? */
 }
 
 button {

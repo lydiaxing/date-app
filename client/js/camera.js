@@ -8,18 +8,22 @@ const URL = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.
 class CameraAPI {
   /**
    * Creates a new CameraAPI instance
-   * @param network A Networking object in order to access socket methods
+   * @param network A pointer to a Networking object in order to access socket methods
+   * @param callback Called after data has been received from the ML framework
    */
-  constructor(network) {
+  constructor(network, callback) {
     this.network = network;
+    this.callback = callback; // Do we actually need this?
 
-    this.player = document.getElementById('player');
+    this.player = document.getElementById('player'); // video player
     this.canvas = document.getElementById('canvas');
-    this.context = canvas.getContext('2d');
+    this.context = this.canvas.getContext('2d');
 
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-      player.srcObject = stream;
+      this.player.srcObject = stream;
     });
+    
+    this.onReceiveData = this.onReceiveData.bind(this);
   }
 
   /**
@@ -40,7 +44,7 @@ class CameraAPI {
    * Sends the camera data to the API
    */
   sendRequest() {
-    this.context.drawImage(player, 0, 0, canvas.width, canvas.height);
+    this.context.drawImage(this.player, 0, 0, this.canvas.width, this.canvas.height);
 
     this.canvas.toBlob(blob => {
       $.ajax({
@@ -66,8 +70,9 @@ class CameraAPI {
    * @param data Data received from the API
    */
   onReceiveData(data) {
-    console.log(data);
-    // TODO: send to server
-    network.sendImageAPIResult(data);
+    const prediction = data.predictions[0].probability > data.predictions[1].probability ?
+                          data.predictions[0].tagName : data.predictions[1].tagName;
+    this.network.sendImageAPIResult(prediction);
+    this.callback(data);
   }
 }

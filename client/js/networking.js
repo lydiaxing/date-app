@@ -8,12 +8,15 @@ class Networking {
     this.name = name;
     this.otherUsers = [];
     this.initiateSessionCallback = () => {};
+    this.matchCallback = () => {};
+    this.inSession = false;
     
     this.socket = io({ query: { name: name }});
     // todo: check for errors (socket didn't connect, etc.)
     
     this.socket.on('userList', this.receiveUsers.bind(this));
     this.socket.on('start', this.callInitiateSessionCallback.bind(this));
+    this.socket.on('match', this.callMatchCallback.bind(this));
   }
   
   /**
@@ -51,7 +54,22 @@ class Networking {
     this.initiateSessionCallback = callback;
   }
   
+  setMatchCallback(callback) {
+    this.matchCallback = callback;
+  }
+  
   callInitiateSessionCallback(data) {
-    this.initiateSessionCallback(data);
+    if (!this.inSession) {
+      this.initiateSessionCallback(data);
+      this.inSession = true;
+    }
+  }
+  
+  callMatchCallback(data) {
+    this.matchCallback(data);
+  }
+  
+  sendImageAPIResult(data) {
+    this.socket.emit('imageData', data)
   }
 }
