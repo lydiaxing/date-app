@@ -7,6 +7,7 @@ class DatingApp {
    * current screen to the welcome view
    */
   constructor() {
+    this.myName = ko.observable('');
     this.currentScreen = ko.observable('welcome');
     this.users = ko.observableArray([]);
     this.selectedUser = ko.observable('');
@@ -61,7 +62,9 @@ $(() => {
 
   // Connect button
   document.getElementById('connect').addEventListener('click', () => {
-    const name = document.getElementById('name').value;
+    const name = document.getElementById('name').value.trim();
+    if (name === '') return;
+    app.myName(name);
     networking = new Networking(name);
 
     // This isn't the best layout for this code but its
@@ -103,7 +106,13 @@ $(() => {
     // On receive match
     networking.setMatchCallback((data) => {
       app.setScreen('match');
+<<<<<<< HEAD
 
+=======
+      
+      window.navigator.vibrate(200);
+      
+>>>>>>> 9544c8611006275b7926f5ab4371c237d2d283f9
       // calculate time taken
       let difference = new Date(new Date() - app.startTime);
       app.time(
