@@ -1,8 +1,7 @@
-const express = require('express');
-
 const PORT = process.env.PORT || 2000;
+const IDENTIFIER = 'interested';
 
-let app = express();
+let app = require('express')();
 const fs = require('fs');
 const https = require('https').createServer(
   {
@@ -83,7 +82,7 @@ io.on('connection', socket => {
   });
   
   socket.on('imageData', data => {
-    const isPositive = data === 'human'; // TODO: get from data
+    const isPositive = data === IDENTIFIER;
     
     if (user.name === user.session.user1.name) user.session.user1positive = isPositive;
     else user.session.user2positive = isPositive;
