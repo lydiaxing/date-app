@@ -37,10 +37,11 @@
       <div data-bind="visible: currentScreen() == 'userList'">
         <p>Please select someone else to chat with</p>
         <p data-bind="visible: users().length === 0">No users are currently online. Try refreshing?</p>
-
-        <div class="userList" data-bind="visible: users().length !== 0, foreach: users">
-          <p class="nameOption" data-bind="text: name, click: $root.nameClick "></p>
-        </div>
+        <table class="userList" data-bind="visible: users().length !== 0, foreach: users">
+          <tr>
+            <td class="nameOption" data-bind="text: name, click: $root.nameClick "></td>
+          </tr>
+        </table>
 
         <button id="refresh">Refresh</button>
       </div>
