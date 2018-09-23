@@ -1,5 +1,7 @@
 # Carnegie Cupid
 
+1st place GSK category - HackCMU 2018
+
 More information available at [Devpost](https://devpost.com/software/carnegie-cupid)
 
 ## Installation
