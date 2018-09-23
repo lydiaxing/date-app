@@ -23,7 +23,6 @@
 
 <body>
   <div class="main">
-    <!-- TODO: is this funny -->
     <div class="header">
       <img class="logo" src="assets/dog.png" />
       <h1>Carnegie Cupid</h1>
@@ -47,7 +46,7 @@
         <p>Please select someone else to chat with</p>
         <p data-bind="visible: users().length === 0">
           (No users are currently online. Try clicking the refresh
-          button below)
+          button below.)
         </p>
         <table class="userList" data-bind="visible: users().length !== 0, foreach: users">
           <tr>

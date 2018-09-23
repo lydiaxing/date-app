@@ -90,8 +90,6 @@ io.on('connection', socket => {
     
     if (user.session.user1positive && user.session.user2positive)
       user.session.emitMatch();
-    
-    console.log(`${user.session.user1.name} is ${user.session.user1positive} and ${user.session.user2.name} is ${user.session.user2positive}`);
   });
   
   socket.on('disconnect', reason => {
