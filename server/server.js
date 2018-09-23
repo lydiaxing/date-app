@@ -39,7 +39,7 @@ class Session {
   
   
   emitStart() {
-    this.user1.socket.emit('start', {
+    this.user1.socket.emit('start', { // user1 will get a start event twice
       name: this.user2.name // name of the other person
     });
     
@@ -129,6 +129,4 @@ function getPossibleUsersList() {
   return result;
 }
 
-https.listen(PORT, () => {
-  console.log("date-app server listening on", PORT);
-});
+https.listen(PORT, () => { console.log("date-app server listening on", PORT); });
