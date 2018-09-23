@@ -1,5 +1,6 @@
 # Carnegie Cupid
 
+More information available at [Devpost](https://devpost.com/software/carnegie-cupid)
 
 ## Installation
 
